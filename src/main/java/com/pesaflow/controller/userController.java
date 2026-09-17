@@ -1,4 +1,10 @@
 package com.pesaflow.controller;
+
+import com.pesaflow.dto.CreateUserRequest;
+import com.pesaflow.entity.User;
+import com.pesaflow.service.UserService;
+
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,6 +17,11 @@ import jakarta.validation.Valid;
 
 @RestController
 public class userController {
+    private final UserService userService;
+    public userController(UserService userService){
+        this.userService = userService;
+    }
+
     @GetMapping("/hello")
     public String hello() {
         return "Hello, World!";
@@ -26,9 +37,8 @@ public class userController {
         return "Welcome to the userController!";
     }
    @PostMapping("/users")
-    public String createUser(@Valid @RequestBody CreateUserRequest request) {
+    public User createUser(@Valid @RequestBody CreateUserRequest request) {
 
-        return "Name: " + request.getName()
-            + ", Email: " + request.getEmail();
-}
+        return userService.createUser(request.getName(), request.getEmail());  
+    }
 }
