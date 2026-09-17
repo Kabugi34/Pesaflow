@@ -4,21 +4,19 @@ import com.pesaflow.dto.CreateUserRequest;
 import com.pesaflow.entity.User;
 import com.pesaflow.service.UserService;
 
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
-import com.pesaflow.dto.CreateUserRequest;
 import jakarta.validation.Valid;
+import java.util.List;
 
 
 @RestController
-public class userController {
+public class UserController {
     private final UserService userService;
-    public userController(UserService userService){
+    public UserController(UserService userService){
         this.userService = userService;
     }
 
@@ -28,17 +26,20 @@ public class userController {
     }
 
     @GetMapping("/users/{id}")
-    public String getUser(@PathVariable Long id)
-         {
-        return "user id:" +id ;
+    public User getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
     @GetMapping("/welcome")
     public String welcome() {
         return "Welcome to the userController!";
     }
-   @PostMapping("/users")
+    @PostMapping("/users")
     public User createUser(@Valid @RequestBody CreateUserRequest request) {
 
         return userService.createUser(request.getName(), request.getEmail());  
+    }
+    @GetMapping ("/users")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
