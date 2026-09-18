@@ -1,8 +1,9 @@
 package com.pesaflow.controller;
 
 import com.pesaflow.dto.CreateUserRequest;
-import com.pesaflow.entity.User;
+import com.pesaflow.dto.UserResponse;
 import com.pesaflow.service.UserService;
+import com.pesaflow.entity.User;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/users/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public UserResponse getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
     @GetMapping("/welcome")
@@ -41,8 +42,8 @@ public class UserController {
         return userService.createUser(request.getName(), request.getEmail());  
     }
     @GetMapping ("/users")
-    public List<User> getAllUsers() {
-        return userService.getAllUsers();
+    public List<UserResponse> getAllUsers() {
+    return userService.getAllUsers();
     }
     @PutMapping("/users/{id}")
     public User updateUser(@Valid @RequestBody CreateUserRequest request, @PathVariable Long id) {
