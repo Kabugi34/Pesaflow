@@ -1,4 +1,5 @@
 package com.pesaflow.service;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.pesaflow.entity.User;
 import com.pesaflow.repository.UserRepository;
@@ -10,13 +11,17 @@ import com.pesaflow.dto.UserResponse;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
+    private final PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository,PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
-    public User createUser(String name ,String email) {
+    public User createUser(String name ,String email,String password) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
+        String hashedPassword =passwordEncoder.encode(password);
+        user.setPassword(hashedPassword);
         return userRepository.save(user);
     }
     public List<UserResponse> getAllUsers(){

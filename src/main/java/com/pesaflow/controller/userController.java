@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping("/users")
     public User createUser(@Valid @RequestBody CreateUserRequest request) {
 
-        return userService.createUser(request.getName(), request.getEmail());  
+        return userService.createUser(request.getName(), request.getEmail(),request.getPassword());  
     }
     @GetMapping ("/users")
     public List<UserResponse> getAllUsers() {

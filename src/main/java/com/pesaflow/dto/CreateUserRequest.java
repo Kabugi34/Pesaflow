@@ -11,4 +11,6 @@ public class CreateUserRequest {
     @NotBlank
     @Email
     private String email;
+    @NotBlank
+    private String password;
 }
