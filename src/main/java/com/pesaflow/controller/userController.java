@@ -36,11 +36,6 @@ public class UserController {
     public String welcome() {
         return "Welcome to the userController!";
     }
-    @PostMapping("/users")
-    public User createUser(@Valid @RequestBody CreateUserRequest request) {
-
-        return userService.createUser(request.getName(), request.getEmail(),request.getPassword());  
-    }
     @GetMapping ("/users")
     public List<UserResponse> getAllUsers() {
     return userService.getAllUsers();
